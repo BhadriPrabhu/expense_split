@@ -1,0 +1,99 @@
+lib/
+├── main.dart
+├── app.dart
+├── injection_container.dart
+│
+├── core/                       # Global utilities, theme, common widgets
+│   ├── constants/              # AppColors, ApiEndpoints
+│   ├── errors/                 # Failures & Exceptions
+│   ├── network/                # Dio Client & Interceptors
+│   ├── theme/                  # Dark/Light theme
+│   ├── utils/                  # Debt Simplification Math Helper
+│   └── widgets/                # CustomButton, LoadingIndicator, Avatar
+│
+└── features/                   # Core App Features
+    │
+    ├── auth/                   # FEATURE 1: Authentication
+    │   ├── data/
+    │   ├── domain/
+    │   └── presentation/
+    │       ├── bloc/           # AuthBloc
+    │       ├── pages/
+    │       │   ├── login_page.dart
+    │       │   └── register_page.dart
+    │       └── widgets/
+    │
+    ├── groups/                 # FEATURE 2: Groups & Members
+    │   ├── data/
+    │   ├── domain/
+    │   └── presentation/
+    │       ├── bloc/           # GroupBloc, MemberBloc
+    │       ├── pages/
+    │       │   ├── group_list_page.dart       # Screen 1: Home screen showing all groups
+    │       │   ├── create_group_page.dart     # Screen 2: Create/Edit group
+    │       │   └── group_detail_page.dart     # Screen 3: Group dashboard (Expenses & Balances tabs)
+    │       └── widgets/
+    │           ├── group_card.dart
+    │           └── member_tile.dart
+    │
+    ├── expenses/               # FEATURE 3: Expense Management & Split Logic
+    │   ├── data/
+    │   ├── domain/
+    │   │   ├── entities/       # Expense, Split, Category
+    │   │   └── usecases/       # AddExpense, GetGroupExpenses, CalculateBalances
+    │   └── presentation/
+    │       ├── bloc/           # ExpenseBloc, AddExpenseBloc
+    │       ├── pages/
+    │       │   ├── add_expense_page.dart      # Screen 4: Add/Edit expense with split mode toggle
+    │       │   └── expense_detail_page.dart  # Screen 5: Breakdown of who paid and who owes
+    │       └── widgets/
+    │           ├── split_type_selector.dart   # Equal, Exact, Percentage toggle widget
+    │           └── expense_tile.dart
+    │
+    └── settlement/             # FEATURE 4: Balance Resolution & Payments
+        ├── data/
+        ├── domain/
+        │   └── usecases/       # SettleUp, GetSimplifiedDebts
+        └── presentation/
+            ├── bloc/           # SettlementBloc
+            ├── pages/
+            │   ├── balances_summary_page.dart # Screen 6: "Who owes whom" list
+            │   └── settle_up_page.dart        # Screen 7: Record payment screen
+            └── widgets/
+                └── debt_card.dart
+
+
+
+
+
+
+
+
+#,Screen Name,Feature Folder,Primary Purpose
+1,Login / Register Page,features/auth,User authentication & profile setup
+2,Group List Page,features/groups,Main dashboard displaying all active groups & total net balance
+3,Create Group Page,features/groups,"Name group, pick icon/category, invite members"
+4,Group Detail Page,features/groups,Tabs for activity feed (expenses) and member balance summary
+5,Add Expense Page,features/expenses,"Set amount, who paid, select participants, and pick split mode (equal, exact, %)"
+6,Expense Detail Page,features/expenses,Detailed breakdown of a single transaction
+7,Settle Up Page,features/settlement,Record payments between two users to clear debt
+
+
+
+
+
+
+Key Clean Architecture Rules for this App
+Keep Math in Domain (UseCases):
+
+Put your Split Math (dividing totals by percentages/shares) and Debt Simplification Algorithm inside domain/usecases/ pure Dart files. Never put math inside BLoCs or UI Widgets!
+
+Models vs. Entities:
+
+ExpenseEntity lives in Domain. It contains core properties like id, amount, paidByUserId, splits.
+
+ExpenseModel lives in Data. It extends ExpenseEntity and adds fromJson() and toJson() methods for database/API mapping.
+
+Keep State Independent:
+
+expenses feature depends on auth (to know who created the expense) and groups (to attach the expense to a group), but it interacts with them through IDs (groupId, userId), keeping the modules clean.
