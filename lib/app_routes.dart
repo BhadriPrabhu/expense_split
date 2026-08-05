@@ -7,13 +7,14 @@ class AppRoutes {
   static const String group = '/';
   static const String bottomNav = '/bottomNav';
 
-  static Route<dynamic> genarateRoute(RouteSettings settings){
+  static Route<dynamic> generateRoute(RouteSettings settings){
+    final arg = settings.arguments;
     switch(settings.name){
       case group:
       return MaterialPageRoute(builder: (_) => GroupScreen(),);
 
       case bottomNav:
-      return MaterialPageRoute(builder: (_) => BottomNavScreen());
+      return MaterialPageRoute(builder: (_) => BottomNavScreen(groupId: (arg as String?) ?? ''), settings: settings);
 
       default:
       return MaterialPageRoute(builder: (_) => Scaffold(body: Center(child: Text("No route is defined for ${settings.name}"),),));

@@ -8,11 +8,11 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     fontSize: 24.0,
   );
-  final centerTextStyle = TextStyle(
+  final sectionTitleStyle = TextStyle(
     color: AppColors().centerTextColor,
     fontFamily: 'Roboto',
     fontSize: 16.0,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w900,
   );
   final bottomNavbarUnselectedText = TextStyle(
     fontFamily: 'Roboto',

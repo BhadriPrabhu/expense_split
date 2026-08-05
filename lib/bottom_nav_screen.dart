@@ -1,29 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:split_arch/app_routes.dart';
 import 'package:split_arch/core/constants/app_text_styles.dart';
 import 'package:split_arch/core/constants/strings.dart';
 import 'package:split_arch/features/expenses/presentation/pages/expenses_screen.dart';
 // import 'package:split_arch/features/groups/presentation/pages/group_screen.dart';
 import 'package:split_arch/features/settlement/presentation/pages/settlement_screen.dart';
 
-class BottomNavScreen extends StatefulWidget{
+class BottomNavScreen extends StatefulWidget {
+  final String groupId;
+
+  const BottomNavScreen({super.key, required this.groupId});
+
   @override
   _BottomNavScreenState createState() => _BottomNavScreenState();
 }
 
-class _BottomNavScreenState extends State<BottomNavScreen>{
+class _BottomNavScreenState extends State<BottomNavScreen> {
   int _currIndex = 0;
-
-  final List<Widget> _screens = [
-    // GroupScreen(),
-    ExpensesScreen(),
-    SettlementScreen(),
-  ];
-
-
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      // GroupScreen(),
+      ExpensesScreen(groupId: widget.groupId),
+      SettlementScreen(groupId: widget.groupId),
+    ];
+    final List<String> appbarString = [
+      AppStrings().expenseAppbarTitle,
+      AppStrings().settlementAppbarTitle,
+    ];
+
     return Scaffold(
-      body: _screens[_currIndex],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.group, (route) => false,);
+            }
+          },
+        ),
+        title: Text(
+          appbarString[_currIndex],
+          style: AppTextStyles().appBarTitleStyle,
+        ),
+      ),
+      body: screens[_currIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currIndex,
         onTap: (value) {
@@ -33,8 +56,14 @@ class _BottomNavScreenState extends State<BottomNavScreen>{
         },
         items: [
           // BottomNavigationBarItem(icon: Icon(Icons.groups), label: AppStrings().groupNavbarText),
-          BottomNavigationBarItem(icon: Icon(Icons.call_split), label: AppStrings().expenseNavbarText),
-          BottomNavigationBarItem(icon: Icon(Icons.swap_horizontal_circle_rounded), label: AppStrings().settlementNavbarText),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.call_split),
+            label: AppStrings().expenseNavbarText,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.swap_horizontal_circle_rounded),
+            label: AppStrings().settlementNavbarText,
+          ),
         ],
         unselectedLabelStyle: AppTextStyles().bottomNavbarUnselectedText,
         selectedLabelStyle: AppTextStyles().bottomNavbarSelectedText,
