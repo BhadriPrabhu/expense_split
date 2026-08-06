@@ -103,19 +103,32 @@ class _GroupScreenState extends State<GroupScreen> {
                                     color: Colors.grey[900],
                                   ),
                                 ),
-                                Text(
-                                  "${currList.memCount} members \u2022 ${currList.desc}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Roboto',
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
+                                currList.desc.isNotEmpty
+                                    ? Text(
+                                      "${currList.memCount} members \u2022 ${currList.desc}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Roboto',
+                                        color: Colors.grey[600],
+                                      ),
+                                    )
+                                    : Text(
+                                      "${currList.memCount} members",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Roboto',
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
                               ],
                             ),
                           ],
                         ),
-                        Icon(Icons.chevron_right_rounded, color: Colors.grey[400], size: 32.0,)
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.grey[400],
+                          size: 32.0,
+                        ),
                       ],
                     ),
                   );
@@ -130,8 +143,11 @@ class _GroupScreenState extends State<GroupScreen> {
       floatingActionButton: Semantics(
         child: FloatingActionButton(
           onPressed: () async {
-            final result = await Navigator.pushNamed(context, AppRoutes.addGroup);
-            if(result != null && result is GroupList){
+            final result = await Navigator.pushNamed(
+              context,
+              AppRoutes.addGroup,
+            );
+            if (result != null && result is GroupList) {
               setState(() {
                 list.add(result);
               });
