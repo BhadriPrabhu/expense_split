@@ -9,7 +9,14 @@ import 'package:split_arch/core/constants/strings.dart';
 import 'package:split_arch/features/groups/domain/entities/group_list.dart';
 import 'package:split_arch/features/groups/domain/entities/member.dart';
 
-class GroupScreen extends StatelessWidget {
+class GroupScreen extends StatefulWidget {
+  const GroupScreen({super.key});
+
+  @override
+  State<GroupScreen> createState() => _GroupScreenState();
+}
+
+class _GroupScreenState extends State<GroupScreen> {
   final List<Member> memList = [
     Member(memId: '1', name: "Bhadri", desc: ""),
     Member(memId: '2', name: "XYZ", desc: ""),
@@ -122,7 +129,14 @@ class GroupScreen extends StatelessWidget {
 
       floatingActionButton: Semantics(
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            final result = await Navigator.pushNamed(context, AppRoutes.addGroup);
+            if(result != null && result is GroupList){
+              setState(() {
+                list.add(result);
+              });
+            }
+          },
           backgroundColor: Colors.indigo[600],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
