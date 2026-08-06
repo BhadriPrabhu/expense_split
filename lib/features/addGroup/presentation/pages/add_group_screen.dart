@@ -53,6 +53,7 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
                     autofocus: true,
                     textInputAction: TextInputAction.done,
                     controller: _memName,
+                    maxLength: 50,
                     decoration: InputDecoration(
                       hintText: "Name",
                       labelText: "Name",
@@ -84,7 +85,7 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          if (_memName.text.isNotEmpty) {
+                          if (_memName.text.trim().isNotEmpty) {
                             setState(() {
                               members.add(
                                 Member(
@@ -153,6 +154,7 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
               TextField(
                 controller: _groupName,
                 autofocus: false,
+                maxLength: 50,
                 decoration: InputDecoration(
                   hintText: "Group Name",
                   prefixIcon: Icon(
@@ -273,16 +275,14 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: ElevatedButton(
             onPressed: () {
-              if (_groupName.text.isNotEmpty && !members.length.isNaN) {
-                // setState(() {
+              if (_groupName.text.isNotEmpty && members.length > 1) {
                   final newGroup = GroupList(
                     id: DateTime.now().toString(),
                     title: _groupName.text.toString(),
                     desc: _groupDesc.text.toString(),
                     list: members.toList(),
                   );
-                // });
-                Navigator.pop(context, newGroup);
+                  Navigator.pop(context, newGroup);
               }
             },
             style: TextButton.styleFrom(
