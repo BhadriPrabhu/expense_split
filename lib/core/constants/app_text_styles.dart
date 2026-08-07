@@ -24,4 +24,13 @@ class AppTextStyles {
     fontSize: 14.0,
     fontWeight: FontWeight.w600,
   );
+  final profileStatMutedTitle = TextStyle(
+    fontSize: 14,
+    color: Colors.grey[600],
+  );
+  final profileStatValue = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.grey[900],
+  );
 }

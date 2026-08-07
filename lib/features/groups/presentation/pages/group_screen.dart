@@ -61,7 +61,7 @@ class _GroupScreenState extends State<GroupScreen> {
                       Navigator.pushNamed(
                         context,
                         AppRoutes.bottomNav,
-                        arguments: currList.id,
+                        arguments: currList,
                       );
                     },
                     style: TextButton.styleFrom(
@@ -70,6 +70,7 @@ class _GroupScreenState extends State<GroupScreen> {
                       ),
                       padding: EdgeInsets.all(16),
                       backgroundColor: Colors.white,
+                      // ignore: deprecated_member_use
                       foregroundColor: Colors.black.withOpacity(0.04),
                     ),
                     // child: Padding(
@@ -77,52 +78,52 @@ class _GroupScreenState extends State<GroupScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.indigo[50],
-                              ),
-                              child: Icon(
-                                Icons.group_rounded,
-                                color: Colors.indigo[600],
-                                size: 16.0,
-                              ),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  currList.title,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Roboto',
-                                    color: Colors.grey[900],
-                                  ),
+                        Container(
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.indigo[50],
+                          ),
+                          child: Icon(
+                            Icons.group_rounded,
+                            color: Colors.indigo[600],
+                            size: 16.0,
+                          ),
+                        ),
+                        SizedBox(width: 16.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currList.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto',
+                                  color: Colors.grey[900],
                                 ),
-                                currList.desc.isNotEmpty
-                                    ? Text(
-                                      "${currList.memCount} members \u2022 ${currList.desc}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto',
-                                        color: Colors.grey[600],
-                                      ),
-                                    )
-                                    : Text(
-                                      "${currList.memCount} members",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Roboto',
-                                        color: Colors.grey[600],
-                                      ),
+                              ),
+                              currList.desc.isNotEmpty
+                                  ? Text(
+                                    "${currList.memCount} members \u2022 ${currList.desc}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'Roboto',
+                                      color: Colors.grey[600],
                                     ),
-                              ],
-                            ),
-                          ],
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  )
+                                  : Text(
+                                    "${currList.memCount} members",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'Roboto',
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                            ],
+                          ),
                         ),
                         Icon(
                           Icons.chevron_right_rounded,

@@ -172,6 +172,7 @@ class _AddGroupScreenState extends State<AddGroupScreen> {
               TextField(
                 controller: _groupDesc,
                 autofocus: false,
+                maxLength: 150,
                 decoration: InputDecoration(
                   hintText: "Description",
                   labelText: "Description",

@@ -8,4 +8,6 @@ class AppStrings {
   String expenseCenterText = "Expenses tab";
   String groupSectionTitle = "Your Groups";
   String settlementCenterText = "Settlement Page";
+  String profileAppbarTitle = "My Group Profile";
+  String profileNavbarTitle = "Group Profile";
 }

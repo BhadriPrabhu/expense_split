@@ -6,5 +6,6 @@ class AppColors {
   final centerTextColor = Colors.grey[900];
   final lightIndigo = Colors.indigo[50];
   final indigo = Colors.indigo[600];
+  final darkIndigo = Colors.indigo[700];
   final white = Colors.white;
 }
